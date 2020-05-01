@@ -51,7 +51,7 @@ client.on('message', (channel, tags, message, self) => {
 	}
 	if ((message.toLowerCase()).slice(0, 3)==="!s " && message.length<=25 && !timeout) {
 		// Subscriber/Mod Check
-		if (tags['badge-info']>0|| tags.mod || tags.username===config.username) {
+		if (tags['badge-info'] != null|| tags.mod || tags.username===config.username) {
 			let soundReq = (message.toLowerCase()).split("!s ")[1];
 			console.log(soundReq);
 			if (soundList.includes(soundReq)){
@@ -64,7 +64,7 @@ client.on('message', (channel, tags, message, self) => {
 			}
 		}
 		else {
-			client.say(channel, "Only subscibers can use the soundboard");
+			client.say(channel, "Only subscriber can use the soundboard");
 		}
 	}
 	else if ((message.toLowerCase()).slice(0, 3)==="!s " && timeout) {

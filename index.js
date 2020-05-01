@@ -42,7 +42,7 @@ setInterval(function(){
 client.connect();
 client.on('message', (channel, tags, message, self) => {
 	//if(self) return;
-	console.log(tags);
+	//console.log(tags);
 	if (message.toLowerCase()==="!soundboard") {
 		client.say(channel, "If you are a subscriber you can now play sounds on my computer. Use !sounds to see what you can play and !s to play them");
 	}

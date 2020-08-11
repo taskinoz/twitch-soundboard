@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/taskinoz/twitch-soundboard#readme",
   "dependencies": {
+    "chalk": "^4.1.0",
+    "mp3wav": "0.0.4",
     "tmi.js": "^1.5.0"
   },
   "devDependencies": {

@@ -25,5 +25,12 @@
   },
   "devDependencies": {
     "pkg": "^4.4.8"
+  },
+  "pkg": {
+    "scripts": [
+      "./node_modules/internal.modules/index.js",
+      "./node_modules/mp3wav/index.js",
+      "./index.js"
+    ]
   }
 }

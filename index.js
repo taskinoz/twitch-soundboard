@@ -10,7 +10,20 @@ var timer = 0;
 var timeout = false;
 
 // Chalk Colours
-const cColours = ["red","green","yellow","blue","magenta","cyan","redBright","greenBright","yellowBright","blueBright","magentaBright","cyanBright"];
+const cColours = [
+  "red",
+  "green",
+  "yellow",
+  "blue",
+  "magenta",
+  "cyan",
+  "redBright",
+  "greenBright",
+  "yellowBright",
+  "blueBright",
+  "magentaBright",
+  "cyanBright"
+];
 
 // Welcome Message
 const welcome = `

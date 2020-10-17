@@ -109,3 +109,4 @@ cmdmp3
 
 # Ignore Creds
 twitch-login.json
+build

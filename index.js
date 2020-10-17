@@ -1,10 +1,10 @@
 const fs = require('fs');
 const { exec } = require("child_process");
-const playSound = require('mp3wav');
+const playSound = require('./lib/sound.js');
 const tmi = require('tmi.js');
 const chalk = require('chalk');
-const sounds = JSON.parse(fs.readFileSync('config.json','utf8'));
-const config = JSON.parse(fs.readFileSync('twitch-login.json','utf8'));
+const config = JSON.parse(fs.readFileSync('config.json','utf8'));
+const twitch = JSON.parse(fs.readFileSync('twitch-login.json','utf8'));
 var rand = function (r){return Math.floor(Math.random()*r);}
 var timer = 0;
 var timeout = false;
@@ -27,7 +27,7 @@ const welcome = `
 
 // Create a list of sounds form thhe JSON
 var soundList = [];
-for(var k in sounds) soundList.push(k);
+for(var k in config.sounds) soundList.push(k);
 
 // Twitch Client Info
 const client = new tmi.Client({
@@ -37,10 +37,10 @@ const client = new tmi.Client({
 		secure: true
 	},
 	identity: {
-		username: config.username,
-		password: config.oauth
+		username: twitch.username,
+		password: twitch.oauth
 	},
-	channels: config.channels
+	channels: twitch.channels
 });
 
 setInterval(function(){
@@ -48,7 +48,7 @@ setInterval(function(){
 },1000*60*5);
 
 setInterval(function(){
-	if (timeout && timer<30) {
+	if (timeout && timer<config.timeout) {
 		timer++
 	}
 	else {
@@ -69,10 +69,12 @@ client.on('message', (channel, tags, message, self) => {
 	}
 	if ((message.toLowerCase()).slice(0, 3)==="!s " && message.length<=25 && !timeout) {
 		// Subscriber/Mod Check
-		if (tags['badge-info'] != null || tags.mod || tags.username===config.username) {
+		if ((tags['badge-info'] != null && config.subscriber) ||
+        (tags.mod && config.mods) ||
+        tags.username===config.username) {
 			let soundReq = (message.toLowerCase()).split("!s ")[1];
 			if (soundList.includes(soundReq)){
-				playSound(sounds[soundReq]);
+				playSound(config.sounds[soundReq]);
 				console.log(`${chalk[cColours[rand(cColours.length)]](tags.username)} played ${soundReq}.mp3`);
 				timeout = true;
 			}
@@ -85,6 +87,6 @@ client.on('message', (channel, tags, message, self) => {
 		}
 	}
 	else if ((message.toLowerCase()).slice(0, 3)==="!s " && timeout) {
-		client.say(channel, `The bot is on cooldown for another ${30-timer}s`);
+		client.say(channel, `The bot is on cooldown for another ${config.timeout-timer}s`);
 	}
 });

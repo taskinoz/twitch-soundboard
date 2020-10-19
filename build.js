@@ -48,3 +48,8 @@ else {
     fs.unlinkSync("build/cmdmp3.zip")
   },3000);
 }
+
+fs.copyFile('twitch-login.example.json', 'build/twitch-login.json', (err) => {
+  if (err) throw err;
+  console.log('Copied login config');
+});

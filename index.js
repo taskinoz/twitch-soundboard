@@ -1,8 +1,33 @@
 const fs = require('fs');
+const path = require('path');
 const { exec } = require("child_process");
 const playSound = require('./lib/sound.js');
 const tmi = require('tmi.js');
 const chalk = require('chalk');
+
+// Setup
+function chekFile(path) {
+  try {
+    if (fs.existsSync(path)) return true
+    else return false
+  } catch(err) {console.error(err)}
+}
+if (!chekFile("config.json")) {
+  var newFile = {
+    timeout: 30,
+    subscriber: true,
+    vip: true,
+    mods: true,
+  }
+  newFile.sounds = new Object();
+
+  fs.readdirSync("sounds").forEach(file => {
+    newFile.sounds[file.replace(".mp3","").replace(/-/g,"")] = `sounds/${file}`;
+  });
+
+  fs.writeFileSync("config.json",JSON.stringify(newFile, null, "\t"))
+}
+
 const config = JSON.parse(fs.readFileSync('config.json','utf8'));
 const twitch = JSON.parse(fs.readFileSync('twitch-login.json','utf8'));
 var rand = function (r){return Math.floor(Math.random()*r);}
@@ -37,6 +62,8 @@ const welcome = `
 <___/\\___/\`___\|\|_\|_\|\\___\|\|___/\\___/<___\|\|_\|  \\___\|
 
 `;
+
+
 
 // Create a list of sounds form thhe JSON
 var soundList = [];

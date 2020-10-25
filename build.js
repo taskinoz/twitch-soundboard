@@ -57,4 +57,9 @@ fs.copyFile('twitch-login.example.json', 'build/twitch-login.json', (err) => {
 });
 
 // Make sounds folder
-if (!chekFile('build/sounds')) {fs.mkdirSync('build/sounds');}
+if (!chekFile('build/sounds')) {
+  fs.mkdirSync('build/sounds');
+}
+if (!chekFile('build/sounds/put_mp3s_here.txt')) {
+  fs.writeFileSync("build/sounds/put_mp3s_here.txt","hi");
+}

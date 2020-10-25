@@ -22,7 +22,9 @@ if (!chekFile("config.json")) {
   newFile.sounds = new Object();
 
   fs.readdirSync("sounds").forEach(file => {
-    newFile.sounds[file.replace(".mp3","").replace(/-/g,"")] = `sounds/${file}`;
+    if (file.includes(".mp3")) {
+      newFile.sounds[file.replace(".mp3","").replace(/-/g,"")] = `sounds/${file}`;
+    }
   });
 
   fs.writeFileSync("config.json",JSON.stringify(newFile, null, "\t"))

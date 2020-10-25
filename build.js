@@ -18,6 +18,7 @@ var download = function(url, dest, cb) {
   });
 }
 
+// Download and copy the cmdmp3 program to /build
 function unZip() {
   const zip = new StreamZip({
       file: './build/cmdmp3.zip',
@@ -49,7 +50,11 @@ else {
   },3000);
 }
 
+// Copy twitch-login.json file
 fs.copyFile('twitch-login.example.json', 'build/twitch-login.json', (err) => {
   if (err) throw err;
   console.log('Copied login config');
 });
+
+// Make sounds folder
+if (!chekFile('build/sounds')) {fs.mkdirSync('build/sounds');}

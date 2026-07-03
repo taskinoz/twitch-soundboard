@@ -19,11 +19,11 @@
   },
   "homepage": "https://github.com/taskinoz/twitch-soundboard#readme",
   "dependencies": {
-    "chalk": "^4.1.0",
-    "tmi.js": "^1.5.0"
+    "chalk": "^4.1.2",
+    "tmi.js": "^1.8.5"
   },
   "devDependencies": {
-    "node-stream-zip": "^1.11.3",
+    "node-stream-zip": "^1.15.0",
     "pkg": "^5.8.1"
   },
   "pkg": {
